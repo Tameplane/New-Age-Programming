@@ -32,3 +32,34 @@ printfn "%b" (isPrime 3)
 printfn "%b" (isPrime 7)
 printfn "%b" (isPrime 10)
 printfn "%b" (isPrime 17)
+
+Q3
+let reverse (s: string) =
+    s.ToCharArray() |> Array.rev |> System.String
+
+let palindrome (s: string) =
+    s = reverse s
+
+printfn "Reverse: %s" (reverse "madam")
+printfn "Palindrome: %b" (palindrome "madam")
+printfn "Palindrome: %b" (palindrome "hello")
+
+let transform (s: string) =
+    if s <> "" && (s |> Seq.forall System.Char.IsLetter) then
+        s.ToUpper()
+    elif s <> "" && (s |> Seq.forall System.Char.IsDigit) then
+        s + s
+    else
+        s
+
+printfn "Result: %s" (transform "diwakar")
+printfn "Result: %s" (transform "456")
+printfn "Result: %s" (transform "diwakar1122")
+
+let emailCheck (s: string) =
+    let parts = s.Split('@')
+    parts.Length = 2 && parts.[0] <> "" && parts.[1].Contains(".")
+
+printfn "Email: %b" (emailCheck "diwakar@gmail.com")
+printfn "Email: %b" (emailCheck "diwakar567@yahoo.com")
+printfn "Email: %b" (emailCheck "invalid")
