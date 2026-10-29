@@ -1,0 +1,20 @@
+printfn "Enter Marks of Four Subjects: "
+
+let marks1 = int (System.Console.ReadLine())
+let marks2 = int (System.Console.ReadLine())
+let marks3 = int (System.Console.ReadLine())
+let marks4 = int (System.Console.ReadLine())
+
+let percentageMarks = float (marks1 + marks2 + marks3 + marks4) / 4.0
+
+
+let divison = 
+    match percentageMarks with
+    | p when p >= 70.0 -> "First Division"
+    | p when p >= 55.0 -> "Second Divison"
+    | p when p >= 42.0 -> "Third Division"
+    | _ -> "Fail"
+
+printfn "Percentage = %.2f%%" percentageMarks
+
+printfn "%s" divison
