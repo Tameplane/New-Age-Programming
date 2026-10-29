@@ -1,3 +1,4 @@
+Q1
 printfn "Enter Marks of Four Subjects: "
 
 let marks1 = int (System.Console.ReadLine())
@@ -10,11 +11,24 @@ let percentageMarks = float (marks1 + marks2 + marks3 + marks4) / 4.0
 
 let divison = 
     match percentageMarks with
-    | p when p >= 70.0 -> "First Division"
-    | p when p >= 55.0 -> "Second Divison"
-    | p when p >= 42.0 -> "Third Division"
+    | p when p >= 60.0 -> "First Division"
+    | p when p >= 50.0 -> "Second Divison"
+    | p when p >= 40.0 -> "Third Division"
     | _ -> "Fail"
 
 printfn "Percentage = %.2f%%" percentageMarks
 
 printfn "%s" divison
+
+Q2
+let isPrime n =
+    if n < 2 then false
+    else
+        [2 .. n-1]
+        |> List.filter(fun i -> n % i = 0)
+        |> List.isEmpty
+
+printfn "%b" (isPrime 3)
+printfn "%b" (isPrime 7)
+printfn "%b" (isPrime 10)
+printfn "%b" (isPrime 17)
