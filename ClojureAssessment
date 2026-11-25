@@ -1,0 +1,63 @@
+
+(ns student-data-pipeline)
+
+(def students
+  [{:id 1 :name "Diwakar" :score 85}
+   {:id 2 :name "Smriti" :score 85}
+   {:id 3 :name "Divya" :score 92}
+   {:id 4 :name "Dev" :score 32}
+   {:id 5 :name "Dave" :score 76}])
+
+(defn process-data [data]
+  (let [mapped
+        (map
+         (fn [s]
+           (assoc s :grade
+                  (cond
+                    (>= (:score s) 90) "A"
+                    (>= (:score s) 75) "B"
+                    (>= (:score s) 50) "C"
+                    :else "D")))
+         data)
+
+        filtered (filter #(>= (:score %) 40) mapped)
+
+        summary
+        (reduce
+         (fn [acc s]
+           {:count (inc (:count acc))
+            :total (+ (:total acc) (:score s))})
+         {:count 0 :total 0}
+         filtered)]
+
+    {:records (vec filtered)
+     :summary
+     {:total-students (:count summary)
+      :average-score
+      (/ (:total summary) (:count summary))}}))
+
+(println "STUDENT DATA PIPELINE")
+(println "---------------------")
+
+(def result (process-data students))
+
+(println "\nProcessed Student Records:")
+(doseq [s (:records result)]
+  (println s))
+
+(println "\nSummary:")
+(println (:summary result))
+
+(println "\nDatabase Simulation:")
+(try
+  (def database (atom []))
+
+  (reset! database (:records result))
+
+  (println "Records saved successfully!")
+  (println "Database Records:" @database)
+
+  (catch Exception e
+    (println "Database Error:" (.getMessage e))))
+
+(println "\nPipeline Completed Successfully!")
